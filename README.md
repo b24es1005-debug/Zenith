@@ -39,7 +39,7 @@ Next.js App Router
 Leaflet client map + UI components
 ```
 
-## Screenshots
+## Screenshots ( yet to be added )
 
 Recommended screenshots for a public portfolio repo:
 
