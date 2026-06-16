@@ -39,15 +39,104 @@ Next.js App Router
 Leaflet client map + UI components
 ```
 
-## Screenshots ( yet to be added )
+## Proofs
 
-Recommended screenshots for a public portfolio repo:
+The repository includes a full proof set in `Zenith-Proofs/` so the README can show the real product flow, not just a summary.
 
-- Home page with the astronomy hero section.
-- Map page with weather, light pollution, and score panels.
-- Meetup listing with pagination controls.
-- Dashboard showing saved-location and meetup statistics.
-- Login page showing Google sign-in.
+| What is included | Count |
+| --- | --- |
+| Screenshots | 14 |
+| Demo videos | 2 |
+
+### Entry and Navigation
+
+<table>
+	<tr>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/login_page.png" alt="Login page" width="100%"><br>
+			<strong>Login page</strong>
+		</td>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/Dashboard.png" alt="Dashboard" width="100%"><br>
+			<strong>Dashboard</strong>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/meetups.png" alt="Meetups listing" width="100%"><br>
+			<strong>Meetups listing</strong>
+		</td>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/new_location.png" alt="New location" width="100%"><br>
+			<strong>New location</strong>
+		</td>
+	</tr>
+</table>
+
+### Intelligence Panels
+
+<table>
+	<tr>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/weather_intelligence.png" alt="Weather intelligence" width="100%"><br>
+			<strong>Weather intelligence</strong>
+		</td>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/Lightpollution_intelligence.png" alt="Light pollution intelligence" width="100%"><br>
+			<strong>Light pollution intelligence</strong>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/astronomy_intelligence.png" alt="Astronomy intelligence" width="100%"><br>
+			<strong>Astronomy intelligence</strong>
+		</td>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/zenith_score.png" alt="Zenith score" width="100%"><br>
+			<strong>Zenith score</strong>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/score_breakdown.png" alt="Score breakdown" width="100%"><br>
+			<strong>Score breakdown</strong>
+		</td>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/upcoming_astronomical_events.png" alt="Upcoming astronomical events" width="100%"><br>
+			<strong>Upcoming astronomical events</strong>
+		</td>
+	</tr>
+</table>
+
+### Meetup and Location Flow
+
+<table>
+	<tr>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/create_meetup.png" alt="Create meetup" width="100%"><br>
+			<strong>Create meetup</strong>
+		</td>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/meetup_creation.png" alt="Meetup creation" width="100%"><br>
+			<strong>Meetup creation</strong>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/address.png" alt="Address lookup" width="100%"><br>
+			<strong>Address lookup</strong>
+		</td>
+		<td align="center" width="50%">
+			<img src="Zenith-Proofs/Pictures/ligth_pollution_newlocation.png" alt="New location light pollution" width="100%"><br>
+			<strong>New location light pollution</strong>
+		</td>
+	</tr>
+</table>
+
+### Demo Videos
+
+- [Full demo video](Zenith-Proofs/Videos/Full_demo.mp4)
+- [Login flow video](Zenith-Proofs/Videos/Login.mp4)
 
 ## Tech Stack
 
