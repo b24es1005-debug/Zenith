@@ -1,0 +1,196 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id               String              @id @default(uuid()) @db.Uuid
+  email            String?             @unique
+  name             String?
+  emailVerified    DateTime?
+  image            String?
+  role             Role                @default(USER)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  accounts         Account[]
+  sessions         Session[]
+  favorites        FavoriteLocation[]
+  createdLocations Location[]
+  meetups          Meetup[]            @relation("HostMeetups")
+  participants     MeetupParticipant[]
+  observations     ObservationLog[]
+  profile          Profile?
+}
+
+model Profile {
+  id                 String   @id @default(uuid()) @db.Uuid
+  userId             String   @unique @db.Uuid
+  avatarUrl          String?
+  bio                String?
+  preferredLatitude  Float?
+  preferredLongitude Float?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  user               User     @relation(fields: [userId], references: [id])
+}
+
+model Account {
+  id                String   @id @default(uuid())
+  userId            String   @db.Uuid
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String   @db.Uuid
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Location {
+  id                  String             @id @default(uuid()) @db.Uuid
+  name                String
+  description         String?
+  latitude            Float
+  longitude           Float
+  address             String?
+  elevationM          Float?
+  public              Boolean            @default(true)
+  createdById         String             @db.Uuid
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  popularityScore     Float?             @default(0)
+  lightPollutionIndex Float?             @default(0)
+  lightPollutionScore Int?
+  bortleClass         Int?
+  lightPollutionLevel  String?
+  skyQualityRating    String?
+  zenithScore         Int?
+  zenithCategory      String?
+  zenithRecommendation String?
+  favorites           FavoriteLocation[]
+  meetups             Meetup[]
+  createdBy           User               @relation(fields: [createdById], references: [id])
+  observationLogs     ObservationLog[]
+
+  @@index([latitude, longitude])
+}
+
+model ObservationLog {
+  id            String   @id @default(uuid()) @db.Uuid
+  userId        String   @db.Uuid
+  locationId    String   @db.Uuid
+  observedAt    DateTime
+  notes         String?
+  cloudCoverPct Int?
+  visibilityKm  Float?
+  bortleScale   Int?
+  metadata      Json?
+  createdAt     DateTime @default(now())
+  location      Location @relation(fields: [locationId], references: [id])
+  user          User     @relation(fields: [userId], references: [id])
+}
+
+model Meetup {
+  id              String              @id @default(uuid()) @db.Uuid
+  title           String
+  description     String?
+  dateTime        DateTime
+  maxParticipants Int?
+  latitude        Float
+  longitude       Float
+  locationName    String
+  hostUserId      String              @db.Uuid
+  locationId      String?             @db.Uuid
+  status          MeetupStatus        @default(PUBLISHED)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  host            User                @relation("HostMeetups", fields: [hostUserId], references: [id])
+  location        Location?           @relation(fields: [locationId], references: [id])
+  participants MeetupParticipant[]
+
+  @@index([dateTime])
+  @@index([hostUserId])
+}
+
+model MeetupParticipant {
+  meetupId String   @db.Uuid
+  userId   String   @db.Uuid
+  joinedAt DateTime @default(now())
+  meetup   Meetup   @relation(fields: [meetupId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@unique([meetupId, userId])
+}
+
+model AstronomicalEvent {
+  id             String    @id @default(uuid()) @db.Uuid
+  title          String
+  description    String?
+  eventType      EventType
+  startDate      DateTime
+  endDate        DateTime?
+  visibilityInfo  Json?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model FavoriteLocation {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @db.Uuid
+  locationId String   @db.Uuid
+  createdAt  DateTime @default(now())
+  location   Location @relation(fields: [locationId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, locationId])
+}
+
+enum Role {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+enum MeetupStatus {
+  DRAFT
+  PUBLISHED
+  CANCELLED
+}
+
+enum EventType {
+  METEOR_SHOWER
+  LUNAR_ECLIPSE
+  SOLAR_ECLIPSE
+  PLANETARY_CONJUNCTION
+  CONJUNCTION
+  TRANSIT
+  OTHER
+}
