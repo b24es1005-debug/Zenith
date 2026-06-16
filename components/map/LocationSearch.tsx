@@ -8,6 +8,7 @@ export type LocationSearchResult = {
   address: string | null;
   latitude: number;
   longitude: number;
+  boundingBox?: [[number, number], [number, number]];
 };
 
 type LocationSearchProps = {
@@ -149,8 +150,15 @@ export function LocationSearch({ onSelect, onUseCurrentLocation, isLocating, loc
                 onClick={() => handleSelect(result)}
                 className="w-full rounded-2xl border border-white/8 bg-white/5 px-4 py-3 text-left transition hover:border-cyan-300/30 hover:bg-cyan-300/10"
               >
-                <div className="font-medium text-white">{result.name}</div>
-                <div className="mt-1 text-xs leading-5 text-white/50">{result.displayName}</div>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="font-medium text-white">{result.name}</div>
+                    <div className="mt-1 text-xs leading-5 text-white/50">{result.displayName}</div>
+                  </div>
+                  <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-cyan-100">
+                    {result.boundingBox ? "Area" : "Point"}
+                  </span>
+                </div>
               </button>
             </li>
           ))}

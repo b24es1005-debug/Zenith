@@ -16,12 +16,17 @@ type SelectedLocation = MapLocation & {
 
 const defaultCenter: [number, number] = [20, 0];
 
-function MapFocus({ center }: { center: [number, number] }) {
+function MapSelectionFocus({ center, bounds }: { center: [number, number]; bounds: [[number, number], [number, number]] | null }) {
   const map = useMap();
 
   useEffect(() => {
+    if (bounds) {
+      map.fitBounds(bounds, { animate: true, duration: 0.8, padding: [56, 56] });
+      return;
+    }
+
     map.flyTo(center, Math.max(map.getZoom(), 5), { animate: true, duration: 0.8 });
-  }, [center, map]);
+  }, [bounds, center, map]);
 
   return null;
 }
@@ -49,6 +54,7 @@ async function reverseGeocode(latitude: number, longitude: number) {
 
 export default function MapView() {
   const [center, setCenter] = useState<[number, number]>(defaultCenter);
+  const [selectedBounds, setSelectedBounds] = useState<[[number, number], [number, number]] | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<SelectedLocation | null>(null);
   const [isLocating, setIsLocating] = useState(false);
   const [locationStatus, setLocationStatus] = useState<string | null>(() =>
@@ -65,6 +71,7 @@ export default function MapView() {
   ) => {
     const requestId = ++requestIdRef.current;
     setCenter(position);
+    setSelectedBounds(null);
 
     if (source === "search result") {
       return;
@@ -129,6 +136,7 @@ export default function MapView() {
   const handleSearchSelect = async (location: LocationSearchResult) => {
     requestIdRef.current += 1;
     setCenter([location.latitude, location.longitude]);
+    setSelectedBounds(location.boundingBox ?? null);
     setSelectedLocation({
       ...location,
       source: "search result",
@@ -152,6 +160,7 @@ export default function MapView() {
 
         requestIdRef.current += 1;
         setCenter(coordinates);
+        setSelectedBounds(null);
         setSelectedLocation({
           latitude: coordinates[0],
           longitude: coordinates[1],
@@ -182,7 +191,7 @@ export default function MapView() {
   const mapKey = selectedLocation ? `${selectedLocation.latitude}-${selectedLocation.longitude}-${selectedLocation.name}` : "empty";
 
   return (
-    <div className="relative flex min-h-[34rem] flex-1 overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 shadow-2xl shadow-black/40">
+    <div className="relative flex min-h-136 flex-1 overflow-hidden rounded-4xl border border-white/10 bg-slate-950/80 shadow-2xl shadow-black/40">
       <MapContainer
         center={center}
         zoom={selectedLocation ? 10 : 3}
@@ -194,7 +203,7 @@ export default function MapView() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MapFocus center={center} />
+        <MapSelectionFocus center={center} bounds={selectedBounds} />
         <MapClickHandler onSelect={handleMapSelect} />
         {selectedLocation ? (
           <LocationMarker
@@ -206,15 +215,15 @@ export default function MapView() {
         ) : null}
       </MapContainer>
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-[500] p-4 sm:p-5">
-        <div className="pointer-events-auto grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-500 p-4 sm:p-5">
+        <div className="pointer-events-auto grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
           <LocationSearch
             onSelect={handleSearchSelect}
             onUseCurrentLocation={handleCurrentLocation}
             isLocating={isLocating}
             locationStatus={locationStatus}
           />
-          <div className="space-y-4">
+          <div className="space-y-4 xl:sticky xl:top-5 xl:max-h-[calc(100vh-8rem)] xl:overflow-auto xl:pr-1">
             <LocationInfoCard key={mapKey} location={selectedLocation} />
             <WeatherCard key={`${mapKey}-weather`} location={selectedLocation} />
             <LightPollutionCard key={`${mapKey}-light-pollution`} location={selectedLocation} />
@@ -224,7 +233,7 @@ export default function MapView() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute bottom-4 left-4 z-[500] rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 text-xs text-white/60 shadow-xl shadow-black/30 backdrop-blur-xl">
+      <div className="pointer-events-none absolute bottom-4 left-4 z-500 rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 text-xs text-white/60 shadow-xl shadow-black/30 backdrop-blur-xl">
         Tip: drag the pin to fine-tune a saved stargazing location.
       </div>
     </div>

@@ -144,7 +144,7 @@ export async function getMeetupById(id: string): Promise<MeetupDetails | null> {
       host: { select: { id: true, name: true, email: true } },
       participants: {
         include: { user: { select: { id: true, name: true, email: true } } },
-        orderBy: { joinedAt: "asc" },
+          orderBy: { createdAt: "asc" },
       },
     },
   });
@@ -174,7 +174,7 @@ export async function getMeetupById(id: string): Promise<MeetupDetails | null> {
     participantCount,
     attendees: meetup.participants.map((participant) => ({
       userId: participant.userId,
-      joinedAt: participant.joinedAt.toISOString(),
+      joinedAt: participant.createdAt.toISOString(),
       name: participant.user.name,
       email: participant.user.email,
     })),

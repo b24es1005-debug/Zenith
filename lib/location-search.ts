@@ -9,6 +9,7 @@ export type LocationSearchResult = {
   address: string | null;
   latitude: number;
   longitude: number;
+  boundingBox?: [[number, number], [number, number]];
 };
 
 type NominatimSearchItem = {
@@ -16,6 +17,7 @@ type NominatimSearchItem = {
   lat: string;
   lon: string;
   name?: string;
+  boundingbox?: [string, string, string, string];
   address?: {
     house_number?: string;
     road?: string;
@@ -53,6 +55,12 @@ function toLocationResult(item: NominatimSearchItem): LocationSearchResult {
   const latitude = Number(item.lat);
   const longitude = Number(item.lon);
   const name = item.name?.trim() || item.display_name.split(",")[0]?.trim() || "Selected location";
+  const boundingBox = item.boundingbox
+    ? [
+        [Number(item.boundingbox[0]), Number(item.boundingbox[2])],
+        [Number(item.boundingbox[1]), Number(item.boundingbox[3])],
+      ] as [[number, number], [number, number]]
+    : undefined;
 
   return {
     name,
@@ -60,6 +68,7 @@ function toLocationResult(item: NominatimSearchItem): LocationSearchResult {
     address: buildAddress(item.address),
     latitude,
     longitude,
+    boundingBox,
   };
 }
 

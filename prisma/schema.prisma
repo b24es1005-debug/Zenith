@@ -143,7 +143,7 @@ model Meetup {
 model MeetupParticipant {
   meetupId String   @db.Uuid
   userId   String   @db.Uuid
-  joinedAt DateTime @default(now())
+  createdAt DateTime @default(now())
   meetup   Meetup   @relation(fields: [meetupId], references: [id])
   user     User     @relation(fields: [userId], references: [id])
 
@@ -187,6 +187,7 @@ enum MeetupStatus {
 
 enum EventType {
   METEOR_SHOWER
+  ECLIPSE
   LUNAR_ECLIPSE
   SOLAR_ECLIPSE
   PLANETARY_CONJUNCTION
