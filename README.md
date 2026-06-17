@@ -135,11 +135,20 @@ The repository includes a full proof set in `Zenith-Proofs/` so the README can s
 
 ### Demo Videos
 
-- [Search flow](Zenith-Proofs/Videos/search.gif)
-- [Meetup Creation Flow](Zenith-Proofs/Videos/meetup_create.gif)
-- [Login Flow](Zenith-Proofs/Videos/Login.gif)
-- [Full demo video](Zenith-Proofs/Videos/Full_demo.mp4)
-- [Login flow video](Zenith-Proofs/Videos/Login.mp4)
+#### Search Flow
+![Search Flow](Zenith-Proofs/Videos/search.gif)
+
+#### Meetup Creation Flow
+![Meetup Creation Flow](Zenith-Proofs/Videos/meetup_create.gif)
+
+#### Login Flow
+![Login Flow](Zenith-Proofs/Videos/Login.gif)
+
+#### Full Demo Video
+[Watch Full Demo](Zenith-Proofs/Videos/Full_demo.mp4)
+
+#### Login Flow Video
+[Watch Login Video](Zenith-Proofs/Videos/Login.mp4)
 
 ## Tech Stack
 
