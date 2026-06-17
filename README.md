@@ -231,3 +231,4 @@ Optional:
 - Add user profile editing and saved-location management.
 - Add richer astronomy event detail pages.
 - Add background jobs for periodic weather and astronomy refreshes.
+- Integrate AI based searching which helps user to find the nearby places which are suitable for Observing Celestial Objects.
