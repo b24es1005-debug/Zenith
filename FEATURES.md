@@ -39,7 +39,7 @@
 - Accessible navigation, menu controls, and status messaging.
 - SEO metadata and OpenGraph tags on major routes.
 
-## Resume-worthy engineering signals
+## Skills acquired
 
 - Server components and client components used intentionally.
 - Prisma schema and migration management.
