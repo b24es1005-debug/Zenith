@@ -1,5 +1,6 @@
 # Zenith Project Context
 
+Have you ever experienced the feeling while stargazing, you would be amazed and you always wanted your friends and family to experience it at least once. You crave to know about or organize the community stargazing meetups but ended up finding no tools which does all of them. That is the reason why I built Zenith-astronomy intelligence community platform.
 Zenith is a production-oriented astronomy planning platform built for people who want to find dark-sky locations, compare sky conditions, and organize meetups under a mobile-first, dark-themed interface.
 
 ## Core goals
