@@ -39,6 +39,14 @@
 - Accessible navigation, menu controls, and status messaging.
 - SEO metadata and OpenGraph tags on major routes.
 
+## Future Improvements
+
+- AI based filtering of nearby location based on the zenith score, light pollution, weather.
+- A texting platform for community members.
+- A gallery for uploading the pictures.
+- Monthly winner based on the number of meetups attended or organized.
+
+  
 ## Skills acquired
 
 - Server components and client components used intentionally.
