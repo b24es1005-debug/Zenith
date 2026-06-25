@@ -226,9 +226,10 @@ Optional:
 ## Future Improvements
 
 - Replace the remaining `middleware.ts` warning with `proxy.ts`.
-- Add screenshot assets to the repository.
 - Expand meetup filters by region or date range.
 - Add user profile editing and saved-location management.
 - Add richer astronomy event detail pages.
 - Add background jobs for periodic weather and astronomy refreshes.
 - Integrate AI based searching which helps user to find the nearby places which are suitable for Observing Celestial Objects.
+- Add a rewarding system at the end of each month for the user who attended or initiated the most number of Meetups.
+- Add a weekly newsletter for the recent and upcoming cosmic events.
